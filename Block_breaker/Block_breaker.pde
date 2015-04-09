@@ -1,4 +1,4 @@
- //<>//
+
 int countDestroyed=0;
 int rows=10, columns=17;
 int menuPoint=0;
@@ -51,13 +51,16 @@ void setup() {
 }
 
 void draw() {
-  background(#9D9797);  
+  
   if (startScreen) {
+    background(0);  
     myStartScreen.display(contGame);
     myStartScreen.menu(menuPoint);
   } else if (optionsScreen) {
+    background(#96C686);
     myOptionsScreen.display();
   } else if (waitingScreen||gameScreen) {
+    background(#9D9797);
     displayInformation();
     myShip.display();                                                   
     myBall.display();
