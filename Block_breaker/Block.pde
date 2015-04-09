@@ -1,4 +1,3 @@
-class Block { //<>//
   float x = 0;
   float y = 0;
   boolean keep=true;
