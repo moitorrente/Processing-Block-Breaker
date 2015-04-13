@@ -3,10 +3,10 @@ class Ball {
   float size=10;// GLOBAL VARIABLES
   float x = 0;
   float y = 0;
-  float speedX = 2;
-  float speedY = 8;
+  float speedX = 3;
+  float speedY = 3;
   int colour;
- // int colour=255;
+  // int colour=255;
 
   //CONSTRUCTOR
   Ball(float _x, float _y, int _colour) {
@@ -42,11 +42,14 @@ class Ball {
   void bounce() {
     if (x>width || x<1) {
       speedX=-speedX;
+      bounceFile.play();
     } else if (y>height || y<1) {
       speedY=-speedY;
+      bounceFile.play();
     }
     if (y>myShip.y-size/2 && x>(myShip.x) && x<(myShip.x+myShip.sizeX)) {
       speedY=-speedY;
+      bounceFile.play();
     }
   }
 

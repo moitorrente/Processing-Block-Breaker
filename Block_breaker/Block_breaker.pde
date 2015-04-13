@@ -1,3 +1,6 @@
+import processing.sound.*;
+SoundFile bounceFile;  
+SoundFile blockFile;  
 
 int countDestroyed=0;
 int rows=10, columns=17;
@@ -29,13 +32,15 @@ void setup() {
   size (width, height);
   noStroke();
   smooth();
-  rows=1;
-  columns=1;
+  // rows=1;
+  // columns=1;
   displayMessage="";
   countDestroyed=0;
   run=false;
-  initialLifes = lifes = 1;
+  initialLifes = lifes = 5;
   totalBlocks=columns*rows;
+  blockFile = new SoundFile(this, "block.wav");
+  bounceFile = new SoundFile(this, "bounce.wav");
   myShip = new Ship(width/2, 7*height/8);
   myBall = new Ball(startBallx, startBally, ballColour);
   myStartScreen = new Start_screen();
@@ -51,7 +56,7 @@ void setup() {
 }
 
 void draw() {
-  
+
   if (startScreen) {
     background(0);  
     myStartScreen.display(contGame);
@@ -149,9 +154,9 @@ void keyPressed() {
       loop();
     }
   }
-  
-  if(optionsScreen){
-    if(key == 'e'){
+
+  if (optionsScreen) {
+    if (key == 'e') {
       optionsScreen = false;
       startScreen = true;
     }

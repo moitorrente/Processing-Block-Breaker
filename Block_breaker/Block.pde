@@ -38,6 +38,7 @@ class Block {
           myBall.speedX=-myBall.speedX;
         } 
         keep=false;
+        blockFile.play();
         countDestroyed++;
         println("-------------------Destruccion de bloque: "+countDestroyed+" -------------------");
         println("    Bloque en posicion row: "+row+"   column: "+column);
