@@ -1,6 +1,9 @@
 import processing.sound.*;
 SoundFile bounceFile;  
 SoundFile blockFile;  
+SoundFile startFile; 
+SoundFile selmenuFile;
+SoundFile entermenuFile;
 
 int countDestroyed=0;
 int rows=10, columns=17;
@@ -19,6 +22,7 @@ boolean exit=false, newgame=false, options=false;
 boolean startScreen = true, gameScreen = false, waitingScreen = false, pauseScreen = false, exitScreen = false, optionsScreen=true;
 boolean ContinueGame=false, gameOver = false, gameWin = false;
 boolean optionsSelected=false;
+boolean first=true;
 int totalBlocks=0;
 int height=1000;
 int width=1224;
@@ -41,6 +45,9 @@ void setup() {
   totalBlocks=columns*rows;
   blockFile = new SoundFile(this, "block.wav");
   bounceFile = new SoundFile(this, "bounce.wav");
+  startFile = new SoundFile(this, "start.wav");
+  selmenuFile = new SoundFile(this, "selmenu.wav");
+  entermenuFile = new SoundFile(this, "entermenu.wav");
   myShip = new Ship(width/2, 7*height/8);
   myBall = new Ball(startBallx, startBally, ballColour);
   myStartScreen = new Start_screen();
@@ -58,7 +65,11 @@ void setup() {
 void draw() {
 
   if (startScreen) {
-    background(0);  
+    if (first) {
+      startFile.play();
+      first=false;
+    }
+    background(#9D9797);  
     myStartScreen.display(contGame);
     myStartScreen.menu(menuPoint);
   } else if (optionsScreen) {
@@ -97,6 +108,7 @@ void draw() {
 
 void keyPressed() {
   if (key == ENTER && startScreen) {
+    entermenuFile.play();
     if (newgame) {
       run = false;
       startScreen = false;
@@ -185,13 +197,21 @@ void keyReleased() {
   if (startScreen) {
     if (key == 'w'|| keyCode ==UP) {
       menuPoint--;
-      if (menuPoint<0) menuPoint=0;
+
+      if (menuPoint<0) {
+        menuPoint=0;
+      } else {
+        selmenuFile.play();
+      }
     } else if (key == 's' || keyCode==DOWN) {
       menuPoint++;
+      
       if (menuPoint>2 && !contGame) { 
         menuPoint=2;
       } else if (menuPoint>3 && contGame) {
         menuPoint=3;
+      } else {
+        selmenuFile.play();
       }
     }
   }
