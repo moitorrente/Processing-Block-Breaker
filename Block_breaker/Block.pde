@@ -4,14 +4,13 @@ class Block {
   boolean keep=true;
   float longY=30, longX=70;
   float sY, sX;
-  //float BlockColor;
+  //  int [ ] blockColors = {#FF0000, #00FF00, #0000FF, #00FFFF, #FF00FF, #FFFF00};
+  //  int colorNum;
 
-  // float BlockColor1 = random(255);
-  // float BlockColor2 = random(255);
-  // float BlockColor3 = random(255);
   Block(float _x, float _y) {
     x = _x*72;
     y = _y*32;
+    //   colorNum=(int) random(0,blockColors.length);
   }
 
 
@@ -52,7 +51,8 @@ class Block {
 
 
   void display() {
-    fill(0);
+    //  fill(blockColors[colorNum]);
+    fill(20);
     rect(x, y, longX, longY, 5);
   }
 }

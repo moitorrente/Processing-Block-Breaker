@@ -5,6 +5,11 @@ SoundFile startFile;
 SoundFile selmenuFile;
 SoundFile entermenuFile;
 
+
+final static String Title = "Block breaker!";
+final static String Icon  = "BBicon.png";
+final static String winMessage="YOU WON!!!", loseMessage="GAME OVER";
+
 int countDestroyed=0;
 int rows=10, columns=17;
 int menuPoint=0;
@@ -29,11 +34,15 @@ int width=1224;
 float startBallx=width/2;
 float startBally=height/2;
 String lifesString="♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥";
-String winMessage="YOU WON!!!", loseMessage="GAME OVER", displayMessage;
+
+String displayMessage;
 int ballColour=255;
 
 void setup() {
   size (width, height);
+  changeAppTitle(Title);
+  changeAppIcon(loadImage(Icon));
+  frameRate(60);
   noStroke();
   smooth();
   // rows=1;
@@ -55,15 +64,15 @@ void setup() {
   myOptionsScreen = new Options_screen();
   fontInfor = createFont("Arial", 20, true);
   fontPause = createFont("Arial", 200, true);
-  for (int numY = 0; numY < rows; numY++) {
-    for (int numX = 0; numX < columns; numX++) {
+  for (int numX = 0; numX < columns; numX++) {
+    for (int numY = 0; numY < rows; numY++) {
       blockCollection[numX][numY]= new Block(numX, numY);
     }
   }
 }
 
 void draw() {
-
+  println(frameRate);
   if (startScreen) {
     if (first) {
       startFile.play();
@@ -98,8 +107,8 @@ void draw() {
         myShip.move(key, keyCode);
       }
     }
-    for (int numY = 0; numY <  rows; numY++) {
-      for (int numX=0; numX <  columns; numX++) {
+    for (int numX=0; numX <  columns; numX++) {
+      for (int numY = 0; numY <  rows; numY++) {
         blockCollection[numX][numY].run(numX, numY);
       }
     }
@@ -205,7 +214,7 @@ void keyReleased() {
       }
     } else if (key == 's' || keyCode==DOWN) {
       menuPoint++;
-      
+
       if (menuPoint>2 && !contGame) { 
         menuPoint=2;
       } else if (menuPoint>3 && contGame) {
@@ -252,4 +261,18 @@ void gameFinal() {
   text(displayMessage, width/2, height/2);
   text("Press space to restart", width/2, height*0.6);
   noLoop();
+}
+
+void changeAppTitle(String title) {
+  frame.setTitle(title);
+}
+
+void changeAppIcon(PImage img) {
+  final PGraphics pg = createGraphics(16, 16, JAVA2D);
+
+  pg.beginDraw();
+  pg.image(img, 0, 0, 16, 16);
+  pg.endDraw();
+
+  frame.setIconImage(pg.image);
 }
