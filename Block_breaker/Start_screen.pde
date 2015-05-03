@@ -1,21 +1,23 @@
 class Start_screen {
-  PFont fontTitle, fontNewGame, fontContinue, fontOptions, fontTip, fontName, fontExit;
-  String Title = "Block Breaker", NewGame = "New game", Options = "Options";
+  PFont fontTitle, fontNewGame, fontContinue, fontOptions, fontTip, fontName, fontExit, fontScores;
+  String Title = "Block Breaker", NewGame = "New game", Options = "Options", Scores = "High scores";
   String Tip = "Press Enter to select an option ", Name = "Created by Moises Torrente using Processing", Exit= "Exit game";
   String Continue = "Continue game";
   float leftSelX, leftSelY, rightSelX, rightSelY;
   float selWidth, selSize = 30;
-  float NewGameY, ContinueY, OptionsY, ExitY;
+  float NewGameY, ContinueY, OptionsY, ExitY, ScoresY;
 
 
   Start_screen() {
     NewGameY  = 0.4;
-    OptionsY  = 0.5;
-    ExitY     = 0.6;
+    ScoresY   = 0.5;
+    OptionsY  = 0.6;
+    ExitY     = 0.7;
     ContinueY = 0.5;
     fontTitle    = createFont("Arial", 50, true);
     fontNewGame  = createFont("Arial", 30, true);
     fontContinue = createFont("Arial", 30, true);
+    fontScores   = createFont("Arial", 30, true);
     fontOptions  = createFont("Arial", 30, true);
     fontTip      = createFont("Arial", 30, true);
     fontName     = createFont("Arial", 30, true);
@@ -26,11 +28,13 @@ class Start_screen {
     title();
     newGame();
     if (contGame) {
-      OptionsY=0.6;
-      ExitY=0.7;
+      ScoresY=0.6;
+      OptionsY=0.7;
+      ExitY=0.8;
       Continue();
     }
     options();
+    scores();
     tip();
     name();
     Exit();
@@ -50,15 +54,25 @@ class Start_screen {
       newgame = true;
     } else if (menuPoint == 1) {
       if (!contGame) {
-        selWidth = options();
-        rightSelY = leftSelY = height*OptionsY - selSize/2;
-        options = true;
+        selWidth = scores();
+        rightSelY = leftSelY = height*ScoresY - selSize/2;
+        scores = true;
       } else if (contGame) {
         selWidth = Continue();
         rightSelY = leftSelY = height*ContinueY - selSize/2;
         ContinueGame = true;
       }
     } else if (menuPoint == 2) {
+      if (!contGame) {
+        selWidth = options();
+        rightSelY = leftSelY = height*OptionsY - selSize/2;
+        options = true;
+      } else if (contGame) {
+        selWidth = scores();
+        rightSelY = leftSelY = height*ScoresY - selSize/2;
+        scores = true;
+      }
+    } else if (menuPoint == 3) {
       if (!contGame) {
         selWidth = Exit();
         rightSelY = leftSelY = height*ExitY - selSize/2;
@@ -68,7 +82,7 @@ class Start_screen {
         rightSelY = leftSelY = height*OptionsY - selSize/2;
         options = true;
       }
-    } else if (menuPoint == 3) {
+    } else if (menuPoint == 4) {
       selWidth = Exit();
       rightSelY = leftSelY = height*ExitY - selSize/2;
       exit = true;
@@ -108,6 +122,15 @@ class Start_screen {
     text(Continue, width/2, height*ContinueY);
     float ContinueWidth = textWidth(Continue);
     return ContinueWidth;
+  }
+
+  float scores() {
+    textAlign(CENTER);
+    textFont(fontScores, 50);
+    fill(255);
+    text(Scores, width/2, height*ScoresY);
+    float ScoresWidth = textWidth(Scores);
+    return ScoresWidth;
   }
 
   float options() {

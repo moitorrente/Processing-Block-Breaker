@@ -19,13 +19,14 @@ Ball myBall;
 Start_screen myStartScreen;
 Pause_screen myPauseScreen;
 Options_screen myOptionsScreen;
+Scores_screen myScoresScreen;
 Block [] [] blockCollection = new Block [columns][rows];
 PFont fontInfor, fontPause;
 int lifes, initialLifes;
 boolean run = false, contGame=false;
 boolean exit=false, newgame=false, options=false;
-boolean startScreen = true, gameScreen = false, waitingScreen = false, pauseScreen = false, exitScreen = false, optionsScreen=true;
-boolean ContinueGame=false, gameOver = false, gameWin = false;
+boolean startScreen = true, gameScreen = false, waitingScreen = false, pauseScreen = false, exitScreen = false, optionsScreen=false, scoresScreen=false;
+boolean ContinueGame=false, gameOver = false, gameWin = false, scores = false;
 boolean optionsSelected=false;
 boolean first=true;
 int totalBlocks=0;
@@ -62,6 +63,7 @@ void setup() {
   myStartScreen = new Start_screen();
   myPauseScreen = new Pause_screen();
   myOptionsScreen = new Options_screen();
+  myScoresScreen = new Scores_screen();
   fontInfor = createFont("Arial", 20, true);
   fontPause = createFont("Arial", 200, true);
   for (int numX = 0; numX < columns; numX++) {
@@ -72,7 +74,7 @@ void setup() {
 }
 
 void draw() {
-  println(frameRate);
+//  println(frameRate);
   if (startScreen) {
     if (first) {
       startFile.play();
@@ -84,6 +86,9 @@ void draw() {
   } else if (optionsScreen) {
     background(#96C686);
     myOptionsScreen.display();
+  } else if (scoresScreen) {
+    background(#96C686);
+    myScoresScreen.display();
   } else if (waitingScreen||gameScreen) {
     background(#9D9797);
     displayInformation();
@@ -124,6 +129,7 @@ void keyPressed() {
       waitingScreen = true;
       optionsScreen= false;
       contGame=false;
+      scoresScreen = false;
       setup();
     } else if (ContinueGame) {
       run = false;
@@ -133,13 +139,23 @@ void keyPressed() {
       waitingScreen = true;
       optionsScreen= false;
       contGame=false;
+      scoresScreen = false;
     } else if (options) {
       run = false;
       gameScreen = false;
       startScreen = false;
       waitingScreen = false;
       optionsScreen = true;
-    } else if (exit) {
+      scoresScreen = false;
+    } else if (scores) {
+      run = false;
+      gameScreen = false;
+      startScreen = false;
+      waitingScreen = false;
+      optionsScreen = false;
+      scoresScreen = true;
+    }
+    else if (exit) {
       exit();
     }
   }
@@ -176,7 +192,7 @@ void keyPressed() {
     }
   }
 
-  if (optionsScreen) {
+  if (optionsScreen||scoresScreen) {
     if (key == 'e') {
       optionsScreen = false;
       startScreen = true;
@@ -215,10 +231,10 @@ void keyReleased() {
     } else if (key == 's' || keyCode==DOWN) {
       menuPoint++;
 
-      if (menuPoint>2 && !contGame) { 
-        menuPoint=2;
-      } else if (menuPoint>3 && contGame) {
+      if (menuPoint>3 && !contGame) { 
         menuPoint=3;
+      } else if (menuPoint>4 && contGame) {
+        menuPoint=4;
       } else {
         selmenuFile.play();
       }
