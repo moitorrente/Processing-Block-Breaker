@@ -74,7 +74,7 @@ void setup() {
 }
 
 void draw() {
-//  println(frameRate);
+  //  println(frameRate);
   if (startScreen) {
     if (first) {
       startFile.play();
@@ -154,8 +154,7 @@ void keyPressed() {
       waitingScreen = false;
       optionsScreen = false;
       scoresScreen = true;
-    }
-    else if (exit) {
+    } else if (exit) {
       exit();
     }
   }
@@ -198,7 +197,6 @@ void keyPressed() {
       startScreen = true;
     }
   }
-
   if (gameScreen) {
     if (key == 'e' && looping) {
       noLoop();
