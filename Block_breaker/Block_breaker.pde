@@ -277,15 +277,15 @@ void gameFinal() {
   noLoop();
 }
 
-void changeAppTitle(String title) {
-  frame.setTitle(title);
+void changeAppTitle(String _title) {
+  frame.setTitle(_title);
 }
 
-void changeAppIcon(PImage img) {
+void changeAppIcon(PImage _img) {
   final PGraphics pg = createGraphics(16, 16, JAVA2D);
 
   pg.beginDraw();
-  pg.image(img, 0, 0, 16, 16);
+  pg.image(_img, 0, 0, 16, 16);
   pg.endDraw();
 
   frame.setIconImage(pg.image);

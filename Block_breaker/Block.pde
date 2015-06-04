@@ -4,6 +4,7 @@ class Block {
   boolean keep=true;
   float longY=30, longX=70;
   float sY, sX;
+  int column, row;
   //  int [ ] blockColors = {#FF0000, #00FF00, #0000FF, #00FFFF, #FF00FF, #FFFF00};
   //  int colorNum;
 
@@ -19,7 +20,9 @@ class Block {
     display();
   }
 
-  void destroy(int column, int row) {
+  void destroy(int _column, int _row) {
+    column = _column;
+    row = _row;
     if (keep) {
       sX = column*72;
       sY = row*32;

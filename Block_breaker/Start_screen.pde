@@ -76,6 +76,7 @@ class Start_screen {
       if (!contGame) {
         selWidth = Exit();
         rightSelY = leftSelY = height*ExitY - selSize/2;
+        scores = false;
         exit = true;
       } else if (contGame) {
         selWidth = options();
@@ -85,6 +86,7 @@ class Start_screen {
     } else if (menuPoint == 4) {
       selWidth = Exit();
       rightSelY = leftSelY = height*ExitY - selSize/2;
+      scores=false;
       exit = true;
     }
 

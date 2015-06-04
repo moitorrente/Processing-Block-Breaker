@@ -39,10 +39,10 @@ class Pause_screen {
     text(messageNo, width/2+150, height*0.6);
   }
 
-  void boxMessage(char displayType) {
+  void boxMessage(char _displayType) {
     fill(#0A0A0A, 100);
     rect(0, 0, width, height);
-    switch(displayType) {
+    switch(_displayType) {
     case 'P':
       extBoxX=420;
       extBoxY=120;
